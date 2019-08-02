@@ -2,11 +2,9 @@
   <div class="container">
 
     <div class="jumbotron text-center">
-            <h1>Welcome to the <strong>VENoM</strong> Example Starter App</h1>
-            <p>Based on tutorial from <a target="_blank" href="https://medium.com/@anaida07/mevn-stack-application-part-1-3a27b61dcae0">here</a>.</p>
-
-        <p>Fully loaded with Docker-compose for local development, hot reload, scss in templates, and more.</p>
-        <router-link v-bind:to="{ name: 'Posts' }" class="add_post_link">View Posts App</router-link>
+            <h1>컨테이너. 질문 IT sue !</h1>
+            <p>컨테이너에 대한 새로운 기술지원 도구, 질문 IT sue입니다.</p>
+        <router-link v-bind:to="{ name: 'Issues' }" class="add_issue_link">이슈 등록하기</router-link>
     </div>
 
 </div>
@@ -26,6 +24,6 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: rgb(242,113,115);
 }
 </style>

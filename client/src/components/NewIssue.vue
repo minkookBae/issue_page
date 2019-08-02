@@ -1,6 +1,6 @@
 <template>
-  <div class="posts">
-    <h1>Add Post</h1>
+  <div class="issues">
+    <h1>Add Issue</h1>
       <div class="form">
         <div>
           <input type="text" name="title" placeholder="TITLE" v-model="title">
@@ -9,16 +9,16 @@
           <textarea rows="15" cols="15" placeholder="DESCRIPTION" v-model="description"></textarea>
         </div>
         <div>
-          <button class="app_post_btn" @click="addPost">Add</button>
+          <button class="app_issue_btn" @click="addIssue">Add</button>
         </div>
       </div>
   </div>
 </template>
 
 <script>
-import PostsService from '@/services/PostsService'
+import IssuesService from '@/services/IssuesService'
 export default {
-  name: 'NewPost',
+  name: 'NewIssue',
   data () {
     return {
       title: '',
@@ -26,12 +26,12 @@ export default {
     }
   },
   methods: {
-    async addPost () {
-      await PostsService.addPost({
+    async addIssue () {
+      await IssuesService.addIssue({
         title: this.title,
         description: this.description
       })
-      this.$router.push({ name: 'Posts' })
+      this.$router.push({ name: 'Issues' })
     }
   }
 }
@@ -47,7 +47,7 @@ export default {
 .form div {
   margin: 20px;
 }
-.app_post_btn {
+.app_issue_btn {
   background: #4d7ef7;
   color: #fff;
   padding: 10px 80px;

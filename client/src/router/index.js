@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Posts from '@/components/Posts'
-import NewPost from '@/components/NewPost'
-import EditPost from '@/components/EditPost'
+import Issues from '@/components/Issues'
+import NewIssue from '@/components/NewIssue'
+import EditIssue from '@/components/EditIssue'
 import Hello from '@/views/Hello'
 
 Vue.use(Router)
@@ -16,19 +16,19 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/posts',
-      name: 'Posts',
-      component: Posts
+      path: '/Issues',
+      name: 'Issues',
+      component: Issues
     },
     {
-      path: '/posts/new',
-      name: 'NewPost',
-      component: NewPost
+      path: '/Issues/new',
+      name: 'NewIssue',
+      component: NewIssue
     },
     {
-      path: '/posts/:id',
-      name: 'EditPost',
-      component: EditPost
+      path: '/Issues/:id',
+      name: 'EditIssue',
+      component: EditIssue
     }
   ]
 })
