@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const morgan = require('morgan')
 
-var Post = require("../models/posts");
+var Issue = require("../models/issues");
 
 const app = express()
 app.use(morgan('combined'))
@@ -14,7 +14,7 @@ app.use(cors())
 var mongoose = require('mongoose');
 
 var DATABASE_URL = process.env.DATABASE_URL || 'http://localhost'
-mongoose.connect(`mongodb://${DATABASE_URL}/posts`, { useNewUrlParser: true });
+mongoose.connect(`mongodb://${DATABASE_URL}/issues`, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 
@@ -24,7 +24,7 @@ db.on('error', function (error) {
   // See: https://github.com/Automattic/mongoose/issues/5169
   if (error.message && error.message.match(/failed to connect to server .* on first connect/)) {
     setTimeout(function () {
-      mongoose.connect(`mongodb://${DATABASE_URL}/posts`, { useNewUrlParser: true }).catch(() => {
+      mongoose.connect(`mongodb://${DATABASE_URL}/issues`, { useNewUrlParser: true }).catch(() => {
         // empty catch avoids unhandled rejections
       });
     }, 20 * 1000);
@@ -39,55 +39,55 @@ db.once("open", function(callback){
 });
 
 // SERVER Setup
-app.get('/posts', (req, res) => {
-  Post.find({}, 'title description', function (error, posts) {
+app.get('/issues', (req, res) => {
+  Issue.find({}, 'title description', function (error, issues) {
     if (error) { console.error(error); }
     res.send({
-      posts: posts
+      issues: issues
     })
   }).sort({_id:-1})
 });
 
 
-// Post Endpoints
-app.post('/posts', (req, res) => {
+// Issue Endpoints
+app.post('/issues', (req, res) => {
   var db = req.db;
   var title = req.body.title;
   var description = req.body.description;
-  var new_post = new Post({
+  var new_issue = new Issue({
     title: title,
     description: description
   })
 
-  new_post.save(function (error) {
+  new_issue.save(function (error) {
     if (error) {
       console.log(error)
     }
     res.send({
       success: true,
-      message: 'Post saved successfully!'
+      message: 'Issue saved successfully!'
     })
   })
 })
 
-// Fetch single post
-app.get('/post/:id', (req, res) => {
+// Fetch single issue
+app.get('/issue/:id', (req, res) => {
   var db = req.db;
-  Post.findById(req.params.id, 'title description', function (error, post) {
+  Issue.findById(req.params.id, 'title description', function (error, issue) {
     if (error) { console.error(error); }
-    res.send(post)
+    res.send(issue)
   })
 })
 
-// Update a post
-app.put('/posts/:id', (req, res) => {
+// Update a issue
+app.put('/issues/:id', (req, res) => {
   var db = req.db;
-  Post.findById(req.params.id, 'title description', function (error, post) {
+  Issue.findById(req.params.id, 'title description', function (error, issue) {
     if (error) { console.error(error); }
 
-    post.title = req.body.title
-    post.description = req.body.description
-    post.save(function (error) {
+    issue.title = req.body.title
+    issue.description = req.body.description
+    issue.save(function (error) {
       if (error) {
         console.log(error)
       }
@@ -98,12 +98,12 @@ app.put('/posts/:id', (req, res) => {
   })
 })
 
-// Delete a post
-app.delete('/posts/:id', (req, res) => {
+// Delete a issue
+app.delete('/issues/:id', (req, res) => {
   var db = req.db;
-  Post.remove({
+  Issue.remove({
     _id: req.params.id
-  }, function(err, post){
+  }, function(err, issue){
     if (err)
       res.send(err)
     res.send({
